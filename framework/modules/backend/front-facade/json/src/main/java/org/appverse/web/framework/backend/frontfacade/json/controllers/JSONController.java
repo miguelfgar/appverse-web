@@ -25,6 +25,7 @@ package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -42,7 +43,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/services")
+@RequestMapping(value = "/*/services")
 public class JSONController {
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -60,8 +61,11 @@ public class JSONController {
 
 	@PostConstruct
 	public void bindMessageConverters() {
+		ObjectMapper mapper = new ObjectMapper();
+//		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
+//		SerializationConfig sc = mapper.getSerializationConfig();
 		customMappingJacksonHttpMessageConverter
-				.setObjectMapper(new ObjectMapper());
+				.setObjectMapper(mapper);
 	}
 
 	private String createXSRFToken(final HttpServletRequest request)
@@ -156,12 +160,26 @@ public class JSONController {
 				parameter = customMappingJacksonHttpMessageConverter
 						.readInternal(parameterType, payload);
 			}
-			Object result = method.invoke(presentationService, parameter);
-			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
-					response);
-			customMappingJacksonHttpMessageConverter.write(result,
-					MediaType.APPLICATION_JSON, outputMessage);
-			addDefaultResponseHeaders(response);
+			try {
+				Object result = method.invoke(presentationService, parameter);
+				ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
+						response);
+				customMappingJacksonHttpMessageConverter.write(result,
+						MediaType.APPLICATION_JSON, outputMessage);
+				addDefaultResponseHeaders(response);
+			}catch(Throwable th) {
+				//capture any service exception while invoking the business method.
+//				ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
+//						response);
+//				customMappingJacksonHttpMessageConverter.write(th,
+//						MediaType.APPLICATION_JSON, outputMessage);
+//				addDefaultResponseHeaders(response);
+////				response.setStatus(403);
+				response.sendError(500, th.getMessage());
+//				response.flushBuffer();
+//				response.sendError(401);
+//				throw th;
+			}
 			return "";
 //		} else if (presentationService instanceof AuthenticationServiceFacade
 //				&& methodName.equals(AuthenticationServiceFacade.class

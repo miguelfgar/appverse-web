@@ -123,6 +123,7 @@
 
 	<modules>
 		<module>api</module>
+		<module>theme</module>
 	</modules>
 	
 	<distributionManagement>
