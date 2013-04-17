@@ -34,7 +34,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
          
  	<mvc:annotation-driven/>   	 
   	<context:component-scan  base-package="org.appverse.web.framework.backend.frontfacade.gxt.controllers"/>
-  	<context:component-scan  base-package="org.appverse.web.framework.backend.frontfacade.json.controllers"/>
+<!--   	<context:component-scan  base-package="org.appverse.web.framework.backend.frontfacade.json.controllers"/> -->
    	 
 </beans>
 

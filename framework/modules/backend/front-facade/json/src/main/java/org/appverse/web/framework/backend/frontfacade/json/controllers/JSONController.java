@@ -25,13 +25,18 @@ package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +44,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/*/services")
+@Path("services")
 public class JSONController {
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -107,12 +110,26 @@ public class JSONController {
 					"XSRF attribute not found in session.");
 		}
 	}
+//	@POST
+//	@Consumes("application/json")
+//	@Produces("application/json")
+//	@Path("*.json")
+//	public String handleRequest1(@Context HttpServletRequest request,
+//			@Context HttpServletResponse response, @FormParam("payload") String payload)
+//			throws Exception {
+//		System.out.println("handle request 1");
+//		return "";
+//	}
 
-	@RequestMapping(value = "/*.json")
-	public String handleRequest(final HttpServletRequest request,
-			final HttpServletResponse response, @RequestBody String payload)
+	@POST
+	@Consumes("application/json")
+	@Produces("application/json")
+	@Path("*.json")
+	public String handleRequest(@Context HttpServletRequest request,
+			@Context HttpServletResponse response, @FormParam("payload") String payload)
 			throws Exception {
 		String path = request.getServletPath();
+		System.out.println("Request Received - "+path);
 		String serviceMehtodName = path.substring(path.lastIndexOf('/') + 1,
 				path.lastIndexOf('.'));
 		String serviceName = serviceMehtodName.substring(0,

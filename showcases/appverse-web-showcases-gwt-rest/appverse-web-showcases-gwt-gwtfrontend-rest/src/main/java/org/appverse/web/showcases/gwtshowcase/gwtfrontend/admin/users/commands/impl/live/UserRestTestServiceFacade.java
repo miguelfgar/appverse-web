@@ -70,7 +70,7 @@ public interface UserRestTestServiceFacade extends RestService {
             }
             //http://localhost:8888/services/userRestServiceFacade-loadUser.json
             ((RestServiceProxy) instance).setResource(new Resource(
-            		GWT.getModuleBaseURL()+"services/userRestServiceFacade-"+methodName+".json"));
+            		/*GWT.getModuleBaseURL()+*/"rest/services/userRestServiceFacade-"+methodName+".json"));
             return instance;
         }
 

@@ -25,7 +25,11 @@ package org.appverse.web.showcases.gwtshowcase.backend.services.presentation.imp
 
 import java.util.List;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
 import org.appverse.web.framework.backend.api.converters.p2b.PaginatedDataFilterP2BBeanConverter;
@@ -45,6 +49,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("userRestServiceFacade")
+@Path("hello")
 public class UserRestServiceFacadeImpl extends AbstractPresentationService {
 
 	@Autowired
@@ -59,6 +64,13 @@ public class UserRestServiceFacadeImpl extends AbstractPresentationService {
 
 	public UserRestServiceFacadeImpl() {
 	}
+	
+	  @GET
+	  @Produces(MediaType.TEXT_HTML)
+	  public String sayHtmlHello() {
+	    return "<html> " + "<title>" + "Hello Jersey" + "</title>"
+	        + "<body><h1>" + "Hello Jersey" + "</body></h1>" + "</html> ";
+	  }
 
 //	@Override
 //	public UserVO loadUser(final long userId) throws Exception {
