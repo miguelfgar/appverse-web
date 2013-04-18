@@ -46,7 +46,8 @@
 	<!-- jersey config with JSON Controller app -->
 	<servlet>
 		<servlet-name>JerseyServlet</servlet-name>
-		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+<!-- 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class> -->
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
 			<param-value>org.appverse.web.showcases.gwtshowcase.backend.services.presentation.impl.live,org.appverse.web.framework.backend.frontfacade.json.controllers</param-value>

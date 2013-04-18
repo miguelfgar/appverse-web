@@ -90,6 +90,12 @@ public class ApplicationRestAsyncCallback<T> implements MethodCallback<T>, Callb
 	@Override
 	public void onFailure(Method method, Throwable ex) {
 		System.out.println("Application failure ["+ex.getMessage()+","+(method!=null?method.getClass().getName():"Method is Null")+"]...");
+		ex.printStackTrace();
+		Throwable th = ex.getCause();
+		while( th != null ) {
+			System.out.println("cause :"+th.getMessage());
+			th = th.getCause();
+		}
 		handleFailure(ex);
 	}
 

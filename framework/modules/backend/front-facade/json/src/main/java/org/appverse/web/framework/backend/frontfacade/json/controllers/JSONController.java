@@ -33,15 +33,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions.BadRequestException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Controller;
 
@@ -65,10 +71,10 @@ public class JSONController {
 	@PostConstruct
 	public void bindMessageConverters() {
 		ObjectMapper mapper = new ObjectMapper();
-//		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
-//		SerializationConfig sc = mapper.getSerializationConfig();
-		customMappingJacksonHttpMessageConverter
-				.setObjectMapper(mapper);
+		// mapper.setDateFormat(new
+		// SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
+		// SerializationConfig sc = mapper.getSerializationConfig();
+		customMappingJacksonHttpMessageConverter.setObjectMapper(mapper);
 	}
 
 	private String createXSRFToken(final HttpServletRequest request)
@@ -98,113 +104,108 @@ public class JSONController {
 	private void checkXSRFToken(final HttpServletRequest request)
 			throws Exception {
 		/**
-		 * Currently this method is not used. Needs to be analyzed how this can be implemented in a "generic" way.
+		 * Currently this method is not used. Needs to be analyzed how this can
+		 * be implemented in a "generic" way.
 		 */
 		String requestValue = request.getHeader("X-XSRF-Cookie");
 		String sessionValue = (String) request.getSession().getAttribute(
 				"X-XSRF-Cookie");
 		if (sessionValue != null && !sessionValue.equals(requestValue)) {
-			//throw new PreAuthenticatedCredentialsNotFoundException(
-			//		"XSRF attribute not found in session.");
-			throw new Exception(
-					"XSRF attribute not found in session.");
+			// throw new PreAuthenticatedCredentialsNotFoundException(
+			// "XSRF attribute not found in session.");
+			throw new Exception("XSRF attribute not found in session.");
 		}
 	}
-//	@POST
-//	@Consumes("application/json")
-//	@Produces("application/json")
-//	@Path("*.json")
-//	public String handleRequest1(@Context HttpServletRequest request,
-//			@Context HttpServletResponse response, @FormParam("payload") String payload)
-//			throws Exception {
-//		System.out.println("handle request 1");
-//		return "";
-//	}
+
+	// @POST
+	// @Consumes("application/json")
+	// @Produces("application/json")
+	// @Path("*.json")
+	// public String handleRequest1(@Context HttpServletRequest request,
+	// @Context HttpServletResponse response, @FormParam("payload") String
+	// payload)
+	// throws Exception {
+	// System.out.println("handle request 1");
+	// return "";
+	// }
 
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	@Path("*.json")
-	public String handleRequest(@Context HttpServletRequest request,
-			@Context HttpServletResponse response, @FormParam("payload") String payload)
-			throws Exception {
-		String path = request.getServletPath();
-		System.out.println("Request Received - "+path);
-		String serviceMehtodName = path.substring(path.lastIndexOf('/') + 1,
-				path.lastIndexOf('.'));
-		String serviceName = serviceMehtodName.substring(0,
-				serviceMehtodName.indexOf('-'));
-		if (serviceName == null || serviceMehtodName.isEmpty()) {
-			throw new IllegalArgumentException(
-					"ServiceFacade requested is empty");
-		}
-		String methodName = serviceMehtodName.substring(serviceMehtodName
-				.indexOf('-') + 1);
-		if (methodName == null || methodName.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Mehtod requested is empty for serviceFacade" + serviceName);
-		}
-		Object presentationService = applicationContext.getBean(serviceName);
+	@Path("{servicename}/{methodname}")
+	public String handleRequest(
+			@PathParam("servicename") String requestServiceName,
+			@PathParam("methodname") String requestMethodName,
+			@Context HttpServletRequest request,
+			@Context HttpServletResponse response,
+			String payload) throws Exception {
+		// String path = request.getServletPath();
+		System.out.println("Request Received - " + requestServiceName+"."+requestMethodName);
+		
+		Object presentationService = applicationContext.getBean(requestServiceName);
 		if (presentationService == null) {
 			throw new IllegalArgumentException(
-					"Requested ServiceFacade don't exists " + serviceName);
+					"Requested ServiceFacade don't exists " + requestServiceName);
 		}
-		//if (!(presentationService instanceof AuthenticationServiceFacade)) {
-			// checkXSRFToken(request);
-			Method[] methods = presentationService.getClass().getMethods();
-			Method method = null;
-			for (Method methodItem : methods) {
-				if (methodItem.getName().equals(methodName)) {
-					method = methodItem;
-					break;
-				}
+		// if (!(presentationService instanceof AuthenticationServiceFacade)) {
+		// checkXSRFToken(request);
+		Method[] methods = presentationService.getClass().getMethods();
+		Method method = null;
+		for (Method methodItem : methods) {
+			if (methodItem.getName().equals(requestMethodName)) {
+				method = methodItem;
+				break;
 			}
-			if (method == null) {
-				throw new IllegalArgumentException(
-						"Requested Method don't exists " + methodName
-								+ " for serviceFacade " + serviceName);
-			}
-			Class<?>[] parameterTypes = method.getParameterTypes();
-			Class<?> parameterType = null;
-			if (parameterTypes.length > 1) {
-				throw new IllegalArgumentException("Requested Method"
-						+ methodName + " for serviceFacade " + serviceName
-						+ " only accepts 0 or 1 parameter");
-			}
-			Object parameter = null;
-			if (parameterTypes.length > 0) {
-				parameterType = parameterTypes[0];
-				parameter = customMappingJacksonHttpMessageConverter
-						.readInternal(parameterType, payload);
-			}
+		}
+		if (method == null) {
+			throw new BadRequestException("Requested Method don't exists "
+					+ requestMethodName + " for serviceFacade " + requestServiceName);
+//			throw new IllegalArgumentException("Requested Method don't exists "
+//					+ requestMethodName + " for serviceFacade " + requestServiceName);
+		}
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		Class<?> parameterType = null;
+		if (parameterTypes.length > 1) {
+			throw new BadRequestException("Requested Method" + requestMethodName
+					+ " for serviceFacade " + requestServiceName
+					+ " only accepts 0 or 1 parameter");
+		}
+		Object parameter = null;
+		if (parameterTypes.length > 0) {
+			parameterType = parameterTypes[0];
 			try {
-				Object result = method.invoke(presentationService, parameter);
-				ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
-						response);
-				customMappingJacksonHttpMessageConverter.write(result,
-						MediaType.APPLICATION_JSON, outputMessage);
-				addDefaultResponseHeaders(response);
+				parameter = customMappingJacksonHttpMessageConverter.readInternal(
+						parameterType, payload);
 			}catch(Throwable th) {
-				//capture any service exception while invoking the business method.
-//				ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
-//						response);
-//				customMappingJacksonHttpMessageConverter.write(th,
-//						MediaType.APPLICATION_JSON, outputMessage);
-//				addDefaultResponseHeaders(response);
-////				response.setStatus(403);
-				response.sendError(500, th.getMessage());
-//				response.flushBuffer();
-//				response.sendError(401);
-//				throw th;
+				throw new BadRequestException("Parameter of type " + parameterType.getCanonicalName()
+						+ " can't be parsed from [" + payload
+						+ "]");
 			}
-			return "";
-//		} else if (presentationService instanceof AuthenticationServiceFacade
-//				&& methodName.equals(AuthenticationServiceFacade.class
-//						.getMethod("getXSRFSessionToken"))) {
-//			createXSRFToken(request);
-//			return "";
-//		}
-//		return null;
+		}
+		try {
+			Object result = method.invoke(presentationService, parameter);
+			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
+					response);
+			customMappingJacksonHttpMessageConverter.write(result,
+					org.springframework.http.MediaType.APPLICATION_JSON, outputMessage);
+			addDefaultResponseHeaders(response);
+		} catch (Throwable th) {
+//			response.sendError(500, th.getMessage());
+			th.printStackTrace();
+			throw  new WebApplicationException(
+					Response
+			          .status(Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON)
+			          .entity("Service Exception Message ["+th.getCause()!=null?th.getCause().getMessage():th.getMessage()+"]")
+			          .build());
+		}
+		return "";
+		// } else if (presentationService instanceof AuthenticationServiceFacade
+		// && methodName.equals(AuthenticationServiceFacade.class
+		// .getMethod("getXSRFSessionToken"))) {
+		// createXSRFToken(request);
+		// return "";
+		// }
+		// return null;
 	}
 
 }
