@@ -25,7 +25,7 @@ public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus> i
 	@Override
 	public void deleteUser(UserVO user,
 			ApplicationRestAsyncCallback<Void> asyncCallback) {
-		UserRestTestServiceFacade.Util.get("deleteUser").deleteUser(user, asyncCallback);
+		UserRestTestServiceFacade.Util.get("borradeleteUser").deleteUser(user, asyncCallback);
 	}
 
 	@Override

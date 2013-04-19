@@ -32,8 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -50,6 +48,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Controller;
+
+import com.sun.jersey.core.spi.factory.ResponseBuilderImpl;
 
 @Controller
 @Path("services")
@@ -129,14 +129,27 @@ public class JSONController {
 	// return "";
 	// }
 
+	/**
+	 * Method to handle all requests to the Appverse Services Presentation Layer.
+	 * It only accepts POST requests, with the parameter set on the payload.
+	 * The URL must contain the servicename (spring name of the Presentation Service) and also the method name.
+	 * The URL musb be something like: {protocol}://{host}:{port}/{appcontext}/{servicename}/{methodname}
+	 * 
+	 * @param requestServiceName The "spring" name of the Service.
+	 * @param requestMethodName The method name
+	 * @param response The HttpServletResponse, injected by Jersey.
+	 * @param payload The payload must contain the parameter as json.
+	 * @return
+	 * @throws Exception In case of any Bad Request or an uncontrolled exception raised by the Service.
+	 */
 	@POST
-	@Consumes("application/json")
-	@Produces("application/json")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{servicename}/{methodname}")
 	public String handleRequest(
 			@PathParam("servicename") String requestServiceName,
 			@PathParam("methodname") String requestMethodName,
-			@Context HttpServletRequest request,
+//			@Context HttpServletRequest request,
 			@Context HttpServletResponse response,
 			String payload) throws Exception {
 		// String path = request.getServletPath();
@@ -144,7 +157,7 @@ public class JSONController {
 		
 		Object presentationService = applicationContext.getBean(requestServiceName);
 		if (presentationService == null) {
-			throw new IllegalArgumentException(
+			throw new BadRequestException(
 					"Requested ServiceFacade don't exists " + requestServiceName);
 		}
 		// if (!(presentationService instanceof AuthenticationServiceFacade)) {
@@ -184,6 +197,7 @@ public class JSONController {
 		}
 		try {
 			Object result = method.invoke(presentationService, parameter);
+//			return Response.ok(result, MediaType.APPLICATION_JSON).build();
 			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
 					response);
 			customMappingJacksonHttpMessageConverter.write(result,
@@ -192,20 +206,14 @@ public class JSONController {
 		} catch (Throwable th) {
 //			response.sendError(500, th.getMessage());
 			th.printStackTrace();
-			throw  new WebApplicationException(
-					Response
-			          .status(Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON)
-			          .entity("Service Exception Message ["+th.getCause()!=null?th.getCause().getMessage():th.getMessage()+"]")
-			          .build());
+			ResponseBuilderImpl builder = new ResponseBuilderImpl();
+			builder.status(Response.Status.INTERNAL_SERVER_ERROR);
+			builder.entity("Service Internal Error ["+th.getCause()!=null?th.getCause().getMessage():th.getMessage()+"]");
+			Response resp = builder.build();
+			throw new WebApplicationException(resp);
 		}
 		return "";
-		// } else if (presentationService instanceof AuthenticationServiceFacade
-		// && methodName.equals(AuthenticationServiceFacade.class
-		// .getMethod("getXSRFSessionToken"))) {
-		// createXSRFToken(request);
-		// return "";
-		// }
-		// return null;
+
 	}
 
 }

@@ -23,16 +23,12 @@
  */
 package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.impl.live;
 
-import java.util.ArrayList;
-
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import org.fusesource.restygwt.client.MethodCallback;
-import org.fusesource.restygwt.client.Options;
 import org.fusesource.restygwt.client.Resource;
 import org.fusesource.restygwt.client.RestService;
 import org.fusesource.restygwt.client.RestServiceProxy;
@@ -48,7 +44,6 @@ public interface UserRestTestServiceFacade extends RestService {
 	void loadUser(Long userId, MethodCallback<UserVO> callback );
 	
 	@POST
-	@Options(expect={200,201})
 	void deleteUser(UserVO userVo, MethodCallback<Void> callback );
 	
 	@POST
