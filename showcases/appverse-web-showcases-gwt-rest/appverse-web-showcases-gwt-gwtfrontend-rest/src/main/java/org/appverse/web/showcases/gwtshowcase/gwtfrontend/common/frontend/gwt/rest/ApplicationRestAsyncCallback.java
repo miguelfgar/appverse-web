@@ -64,7 +64,7 @@ public class ApplicationRestAsyncCallback<T> implements MethodCallback<T>, Callb
 		defaultPresentationExceptionTreatmentWithoutClosingWindow(ex);
 	}
 	
-	private void handleFailure(Throwable ex) {
+	private void handleFailure(Throwable ex, Method method) {
 		GWTPresentationException pex = null;
 		if (ex instanceof GWTPresentationException) {
 			pex = (GWTPresentationException) ex;
@@ -78,10 +78,8 @@ public class ApplicationRestAsyncCallback<T> implements MethodCallback<T>, Callb
 				return;
 			// Application exception (with an application code)
 		} else {
-			// We should not receive exceptions different from
-			// GWTPresentationException in RPC commands. We control this just
-			// for security.
-			pex = new GWTPresentationException(ex.getMessage(), null);
+			
+			pex = new GWTPresentationException(ex.getMessage()+(method!=null?" ["+method.getResponse().getText()+"]":""), null);
 		}
 		handlePresentationException(pex);
 		return;
