@@ -382,3 +382,54 @@ Compiling...
    Compilation completed in 0,00 seconds
 Removing invalidated units
 Finding entry point classes
+Public resources found in...
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\core\api\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\front-facade\gwt\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\front-facade\json\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\frontend\gwt\api\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\showcases\appverse-web-showcases-gwt-rest\appverse-web-showcases-gwt-gwtshared-rest\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-frontend-gwt-api\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-frontfacade-gwt\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-core-api\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-showcases-gwt-gwtshared-rest\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-frontfacade-json\target\test-classes is neither a directory nor an archive (.jar or .zip)
+Translatable source found in...
+Found 0 cached/archived units.  Used 0 / 2718 units from cache.
+Compiling...
+   Compilation completed in 8,29 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\core\api\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\front-facade\gwt\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\front-facade\json\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\frontend\gwt\api\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\showcases\appverse-web-showcases-gwt-rest\appverse-web-showcases-gwt-gwtshared-rest\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-frontend-gwt-api\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-frontfacade-gwt\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-core-api\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-showcases-gwt-gwtshared-rest\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-frontfacade-json\target\test-classes is neither a directory nor an archive (.jar or .zip)
+Translatable source found in...
+Found 2718 cached/archived units.  Used 2718 / 2718 units from cache.
+Compiling...
+   Compilation completed in 0,00 seconds
+Removing invalidated units
+Finding entry point classes
+Public resources found in...
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\core\api\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\front-facade\gwt\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\backend\front-facade\json\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\framework\modules\frontend\gwt\api\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\workspace\dev\repositories\git\appverse-web\showcases\appverse-web-showcases-gwt-rest\appverse-web-showcases-gwt-gwtshared-rest\src\test\java is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-frontend-gwt-api\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-frontfacade-gwt\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-core-api\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-showcases-gwt-gwtshared-rest\target\test-classes is neither a directory nor an archive (.jar or .zip)
+   Unexpected entry in classpath; C:\appverse-web-modules-backend-frontfacade-json\target\test-classes is neither a directory nor an archive (.jar or .zip)
+Translatable source found in...
+Found 2718 cached/archived units.  Used 2718 / 2718 units from cache.
+Compiling...
+   Compilation completed in 0,00 seconds
+Removing invalidated units
+Finding entry point classes

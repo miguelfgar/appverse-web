@@ -52,7 +52,7 @@ import org.springframework.stereotype.Controller;
 import com.sun.jersey.core.spi.factory.ResponseBuilderImpl;
 
 @Controller
-@Path("services")
+@Path("jsonservices")
 public class JSONController {
 	@Autowired
 	private ApplicationContext applicationContext;

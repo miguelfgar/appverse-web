@@ -50,7 +50,7 @@
 		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>org.appverse.web.showcases.gwtshowcase.backend.services.presentation.impl.live,org.appverse.web.framework.backend.frontfacade.json.controllers</param-value>
+			<param-value>org.appverse.web.framework.backend.frontfacade.gxt.controllers,org.appverse.web.framework.backend.frontfacade.json.controllers</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
@@ -64,16 +64,20 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>JerseyServlet</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
+		<url-pattern>/admin/rest/*</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-	</servlet>
 	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>*.rpc</url-pattern>
+		<servlet-name>JerseyServlet</servlet-name>
+		<url-pattern>/admin/gwtrpc/*</url-pattern>
 	</servlet-mapping>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>dispatcher</servlet-name> -->
+<!-- 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>dispatcher</servlet-name> -->
+<!-- 		<url-pattern>*.rpc</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 	<!-- <servlet-mapping> -->
 	<!-- <servlet-name>dispatcher</servlet-name> -->
 	<!-- <url-pattern>*.json</url-pattern> -->
