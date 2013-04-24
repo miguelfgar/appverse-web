@@ -31,8 +31,8 @@ import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-//@RemoteServiceRelativePath("services/userServiceFacade.rpc")
-@RemoteServiceRelativePath("gwtrpc/services/userServiceFacade.rpc")
+@RemoteServiceRelativePath("services/userServiceFacade.rpc")
+//@RemoteServiceRelativePath("gwtrpc/services/userServiceFacade.rpc")
 public interface UserServiceFacade extends IPresentationService, RemoteService {
 
 	UserVO loadUser(long userId) throws Exception;

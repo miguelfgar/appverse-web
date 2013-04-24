@@ -49,7 +49,7 @@ import com.google.gwt.user.server.rpc.RPCRequest;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @Controller
-@Path("services")
+@Path("/")
 public class GwtRpcController extends RemoteServiceServlet {
 
 	private static final long serialVersionUID = 4147354200774086984L;

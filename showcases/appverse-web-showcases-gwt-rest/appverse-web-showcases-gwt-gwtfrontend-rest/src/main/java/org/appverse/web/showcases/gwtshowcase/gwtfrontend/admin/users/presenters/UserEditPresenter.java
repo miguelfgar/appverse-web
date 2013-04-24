@@ -87,14 +87,24 @@ public class UserEditPresenter extends
 				Dialog btn = (Dialog) event.getSource();
 				String answer = btn.getHideButton().getText();
 				if (btn.getDialogMessages().yes().equals(answer)) {
-					userRestRpcCommand.deleteUser(user, new ApplicationRestAsyncCallback<Void>() {
+					userRpcCommand.deleteUser(user,
+							new ApplicationAsyncCallback<Void>() {
+								@Override
+								public void onSuccess(final Void v) {
+									// TODO: Show here an alert confirming that
+									// the object was succesfully deleted
+									eventBus.usersSearch(true);
+								}
+							});
 
-						@Override
-						public void onSuccess(Method method, Void response) {
-							eventBus.usersSearch(true);
-						}
-						
-					});
+//					userRestRpcCommand.deleteUser(user, new ApplicationRestAsyncCallback<Void>() {
+//
+//						@Override
+//						public void onSuccess(Method method, Void response) {
+//							eventBus.usersSearch(true);
+//						}
+//						
+//					});
 				}
 			}
 		});

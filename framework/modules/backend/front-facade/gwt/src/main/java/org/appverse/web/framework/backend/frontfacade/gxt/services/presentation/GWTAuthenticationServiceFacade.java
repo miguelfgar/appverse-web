@@ -28,8 +28,8 @@ import org.appverse.web.framework.backend.api.services.presentation.Authenticati
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-//@RemoteServiceRelativePath("services/gwtAuthenticationServiceFacade.rpc")
-@RemoteServiceRelativePath("gwtrpc/services/gwtAuthenticationServiceFacade.rpc")
+@RemoteServiceRelativePath("services/gwtAuthenticationServiceFacade.rpc")
+//@RemoteServiceRelativePath("gwtrpc/services/gwtAuthenticationServiceFacade.rpc")
 public interface GWTAuthenticationServiceFacade extends
 		AuthenticationServiceFacade, RemoteService {
 
