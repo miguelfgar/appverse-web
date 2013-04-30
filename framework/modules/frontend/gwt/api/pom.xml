@@ -173,7 +173,7 @@
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
 			<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
 		</dependency>

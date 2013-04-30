@@ -204,9 +204,9 @@
   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultFieldLabelAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.form.FieldLabel.FieldLabelAppearance" />
   </replace-with>
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTriggerFieldAppearance">
-    <when-type-is class="com.sencha.gxt.cell.core.client.form.TwinTriggerFieldCell.TwinTriggerFieldAppearance" />
-  </replace-with>
+<!--   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTriggerFieldAppearance"> -->
+<!--     <when-type-is class="com.sencha.gxt.cell.core.client.form.TwinTriggerFieldCell.TwinTriggerFieldAppearance" /> -->
+<!--   </replace-with> -->
   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTriggerFieldAppearance">
     <when-type-is class="com.sencha.gxt.cell.core.client.form.TriggerFieldCell.TriggerFieldAppearance" />
   </replace-with>

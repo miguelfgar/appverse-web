@@ -25,6 +25,7 @@
 <!-- 	<inherits name="com.sencha.gxt.theme.blue.Blue" /> -->
 
 	<inherits name="org.appverse.web.framework.frontend.gwt.theme.AppverseTheme"/>
+<!-- 	<inherits name="com.sencha.gxt.theme.blue.Blue" /> -->
 
 	<replace-with
 		class="org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance">
