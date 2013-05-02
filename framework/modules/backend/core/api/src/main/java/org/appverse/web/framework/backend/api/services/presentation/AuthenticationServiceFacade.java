@@ -29,6 +29,7 @@ import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDa
 
 public interface AuthenticationServiceFacade extends IPresentationService {
 
+	@POST
 	public void authenticatePrincipal(String username, List<String> authorities);
 
 	public AuthorizationDataVO authenticatePrincipal(String username,

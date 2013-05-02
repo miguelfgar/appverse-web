@@ -24,17 +24,16 @@
 package org.appverse.web.framework.frontend.gwt.commands;
 
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
-public interface AuthenticationRpcCommand {
+public interface AuthenticationCommand {
 
 	void onAuthenticate();
 
 	void onAuthenticatePrincipal(String username, String password,
-			AsyncCallback<AuthorizationDataVO> callback);
+			AppverseCallback<AuthorizationDataVO> callback);
 
 	void onGetXSRFSessionToken();
 
-	void onIsPrincipalAuthenticated(AsyncCallback<Boolean> callback);
+	void onIsPrincipalAuthenticated(AppverseCallback<Boolean> callback);
 }

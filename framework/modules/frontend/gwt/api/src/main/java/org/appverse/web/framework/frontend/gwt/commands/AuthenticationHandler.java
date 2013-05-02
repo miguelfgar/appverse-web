@@ -21,32 +21,19 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.frontend.gwt.common;
+package org.appverse.web.framework.frontend.gwt.commands;
 
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
-import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationHandlerImpl;
 
-import com.mvp4g.client.annotation.Event;
-import com.mvp4g.client.annotation.Start;
-import com.mvp4g.client.event.EventBusWithLookup;
+public interface AuthenticationHandler {
 
-public interface FrameworkEventBus extends EventBusWithLookup {
+	void onAuthenticate();
 
-	@Start
-	@Event(handlers = { AuthenticationHandlerImpl.class })
-	void authenticate();
-
-	@Event(handlers = { AuthenticationHandlerImpl.class })
-	void authenticatePrincipal(String username, String password,
+	void onAuthenticatePrincipal(String username, String password,
 			AppverseCallback<AuthorizationDataVO> callback);
 
-	@Event(handlers = { AuthenticationHandlerImpl.class })
-	void getXSRFSessionToken();
+	void onGetXSRFSessionToken();
 
-	@Event(handlers = { AuthenticationHandlerImpl.class })
-	void isPrincipalAuthenticated(AppverseCallback<Boolean> callback);
-
-	void start();
-
+	void onIsPrincipalAuthenticated(AppverseCallback<Boolean> callback);
 }
